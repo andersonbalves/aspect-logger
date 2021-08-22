@@ -34,15 +34,13 @@ public class LoggerAttributeHandlerDefaultImpl implements ILoggerAttributeHandle
     return dto;
   }
 
-  private Map<String, Object> buildParamsMap(LoggerDTO dto, JoinPoint joinPoint) {
+  private void buildParamsMap(LoggerDTO dto, JoinPoint joinPoint) {
     String[] argNames = ((MethodSignature) joinPoint.getSignature()).getParameterNames();
     Object[] values = joinPoint.getArgs();
-    Map<String, Object> params = new HashMap<>();
     if (argNames.length != 0) {
       for (int i = 0; i < argNames.length; i++) {
-        params.put(argNames[i], values[i]);
+        dto.getArgs().put(argNames[i], values[i]);
       }
     }
-    return params;
   }
 }

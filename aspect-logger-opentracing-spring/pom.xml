@@ -2,7 +2,20 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <artifactId>aspect-logger-parent</artifactId>
+    <groupId>br.com.baratella.logger.aspect</groupId>
+    <version>0.0.1</version>
+  </parent>
+
+  <groupId>br.com.baratella.logger.aspect</groupId>
   <artifactId>aspect-logger-opentracing-spring</artifactId>
+  <version>${aspect.logger.version}</version>
+
+  <name>aspect-logger-opentracing-spring</name>
+  <description>Plugin Opentracing for Aspect Logger</description>
+  <modelVersion>4.0.0</modelVersion>
 
   <build>
     <plugins>
@@ -33,17 +46,6 @@
       <version>0.5.9</version>
     </dependency>
   </dependencies>
-  <description>Plugin Opentracing for Aspect Logger</description>
-  <groupId>br.com.baratella.logger.aspect</groupId>
-  <modelVersion>4.0.0</modelVersion>
-  <name>aspect-logger-opentracing-spring</name>
 
-  <parent>
-    <artifactId>aspect-logger-parent</artifactId>
-    <groupId>br.com.baratella.logger.aspect</groupId>
-    <version>0.0.1</version>
-  </parent>
-
-  <version>${aspect.logger.version}</version>
 
 </project>
