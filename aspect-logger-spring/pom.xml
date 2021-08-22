@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>aspect-logger-spring</artifactId>
+
+  <build>
+    <plugins>
+
+
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <artifactId>aspect-logger-core</artifactId>
+      <groupId>br.com.baratella.logger.aspect</groupId>
+      <version>${aspect.logger.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-aop</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+  </dependencies>
+  <description>Plugin Spring for Aspect Logger</description>
+  <groupId>br.com.baratella.logger.aspect</groupId>
+  <modelVersion>4.0.0</modelVersion>
+  <name>aspect-logger-spring</name>
+
+  <parent>
+    <artifactId>aspect-logger-parent</artifactId>
+    <groupId>br.com.baratella.logger.aspect</groupId>
+    <version>0.0.1</version>
+  </parent>
+
+  <version>${aspect.logger.version}</version>
+
+</project>
