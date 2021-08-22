@@ -1,10 +1,8 @@
-package br.com.baratella.logger.interceptors.handler.impl;
+package br.com.baratella.logger.handler.impl;
 
 import br.com.baratella.logger.entity.dto.LoggerDTO;
-import br.com.baratella.logger.interceptors.handler.ILoggerAttributeHandler;
+import br.com.baratella.logger.handler.ILoggerAttributeHandler;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 
@@ -20,6 +18,7 @@ public class LoggerAttributeHandlerDefaultImpl implements ILoggerAttributeHandle
     buildParamsMap(dto, joinPoint);
     if (attributes.length > 0) {
       Arrays.stream(attributes)
+          .map(e -> e != null)
           .forEach(e -> dto.getParams().put(e.getClass().getSimpleName(), e));
     }
     return dto;
@@ -29,8 +28,14 @@ public class LoggerAttributeHandlerDefaultImpl implements ILoggerAttributeHandle
   public LoggerDTO handleAfter(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
     if (attributes.length > 0) {
       Arrays.stream(attributes)
+          .map(e -> e != null)
           .forEach(e -> dto.getParams().put(e.getClass().getSimpleName(), e));
     }
+    return dto;
+  }
+
+  @Override
+  public LoggerDTO handleAfterThrow(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
     return dto;
   }
 

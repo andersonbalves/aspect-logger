@@ -1,6 +1,6 @@
 package br.com.baratella.logger.config;
 
-import br.com.baratella.logger.interceptors.handler.impl.LoggerAttributeHandlerDefaultImpl;
+import br.com.baratella.logger.handler.impl.LoggerAttributeHandlerDefaultImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

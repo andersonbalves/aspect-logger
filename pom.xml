@@ -3,49 +3,13 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <artifactId>aspect-logger-parent</artifactId>
-
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <parameters>true</parameters>
-        </configuration>
-        <groupId>org.apache.maven.plugins</groupId>
-      </plugin>
-    </plugins>
-  </build>
-  <dependencies>
-    <dependency>
-      <artifactId>disruptor</artifactId>
-      <groupId>com.lmax</groupId>
-      <version>3.4.2</version>
-    </dependency>
-    <dependency>
-      <artifactId>lombok</artifactId>
-      <groupId>org.projectlombok</groupId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <artifactId>aspectjweaver</artifactId>
-      <groupId>org.aspectj</groupId>
-      <scope>compile</scope>
-    </dependency>
-  </dependencies>
-  <description>Parent Project for Aspect Logger</description>
   <groupId>br.com.baratella.logger.aspect</groupId>
-  <modelVersion>4.0.0</modelVersion>
-  <modules>
-    <module>aspect-logger-api</module>
-    <module>aspect-logger-core</module>
-    <module>aspect-logger-spring</module>
-    <module>aspect-logger-opentracing</module>
-    <module>aspect-logger-opentracing-spring</module>
-  </modules>
-  <name>aspect-logger-parent</name>
-
+  <artifactId>aspect-logger-parent</artifactId>
+  <version>0.0.1</version>
   <packaging>pom</packaging>
+  <name>aspect-logger-parent</name>
+  <description>Parent Project for Aspect Logger</description>
+  <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <artifactId>spring-boot-dependencies</artifactId>
@@ -64,7 +28,58 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
 
-  <version>0.0.1</version>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <parameters>true</parameters>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+    </dependency>
+    <dependency>
+      <artifactId>disruptor</artifactId>
+      <groupId>com.lmax</groupId>
+      <version>3.4.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <artifactId>aspectjweaver</artifactId>
+      <groupId>org.aspectj</groupId>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+
+  <modules>
+    <module>aspect-logger-api</module>
+    <module>aspect-logger-core</module>
+    <module>aspect-logger-spring</module>
+    <module>aspect-logger-opentracing</module>
+    <module>aspect-logger-opentracing-spring</module>
+  </modules>
 
 
 </project>

@@ -1,7 +1,7 @@
 package br.com.baratella.logger.config;
 
-import br.com.baratella.logger.interceptors.handler.ILoggerAttributeHandler;
-import br.com.baratella.logger.interceptors.handler.impl.LoggerAttributeHandlerOpentracingImpl;
+import br.com.baratella.logger.handler.ILoggerAttributeHandler;
+import br.com.baratella.logger.handler.impl.LoggerAttributeHandlerOpentracingImpl;
 import io.opentracing.Tracer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

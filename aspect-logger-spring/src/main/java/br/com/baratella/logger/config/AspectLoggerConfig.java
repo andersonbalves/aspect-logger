@@ -1,11 +1,11 @@
 package br.com.baratella.logger.config;
 
+import br.com.baratella.logger.handler.ILoggerAttributeHandler;
 import br.com.baratella.logger.interceptors.IAnnotationLogger;
 import br.com.baratella.logger.interceptors.IConsumerLogger;
 import br.com.baratella.logger.interceptors.IControllerLogger;
 import br.com.baratella.logger.interceptors.IProducerLogger;
 import br.com.baratella.logger.interceptors.IServiceLogger;
-import br.com.baratella.logger.interceptors.handler.ILoggerAttributeHandler;
 import br.com.baratella.logger.interceptors.impl.AnnotationLoggerDefaultImpl;
 import br.com.baratella.logger.interceptors.impl.ConsumerLoggerDefaultImpl;
 import br.com.baratella.logger.interceptors.impl.ControllerLoggerDefaultImpl;

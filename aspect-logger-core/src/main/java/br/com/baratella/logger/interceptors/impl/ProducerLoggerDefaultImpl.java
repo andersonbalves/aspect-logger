@@ -1,13 +1,15 @@
 package br.com.baratella.logger.interceptors.impl;
 
 import br.com.baratella.logger.entity.dto.LoggerDTO;
+import br.com.baratella.logger.handler.ILoggerAttributeHandler;
 import br.com.baratella.logger.interceptors.IProducerLogger;
-import br.com.baratella.logger.interceptors.handler.ILoggerAttributeHandler;
 import java.util.Date;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 
+@Slf4j
 @RequiredArgsConstructor
 public class ProducerLoggerDefaultImpl implements IProducerLogger {
 
@@ -20,19 +22,32 @@ public class ProducerLoggerDefaultImpl implements IProducerLogger {
         .filter(e -> e.canHandle(dto, joinPoint))
         .forEach(e -> e.handleBefore(dto, joinPoint));
 
-//    log.info("-> Método " + dto.getMethod() + " iniciado com as seguintes informações:\n"
-//        + dto.toString());
+    log.info("-> Método " + dto.getMethod() + " iniciado com as seguintes informações:\n"
+        + dto.toString());
 
     long startTime = new Date().getTime();
-    Object result = joinPoint.proceed(joinPoint.getArgs());
-    long endTime = new Date().getTime();
+    Object retorno = null;
+    try {
+      retorno = joinPoint.proceed(joinPoint.getArgs());
+    } catch (Throwable t) {
+      handlers.stream()
+          .filter(e -> e.canHandle(dto, joinPoint))
+          .forEach(e -> e.handleAfterThrow(dto, joinPoint, t));
+      throw t;
+    } finally {
+      long endTime = new Date().getTime();
+      String stringRetorno = null;
+      if (retorno != null) {
+        stringRetorno = retorno.toString();
+      }
 
-    handlers.stream()
-        .filter(e -> e.canHandle(dto, joinPoint))
-        .forEach(e -> e.handleAfter(dto, joinPoint));
-
-//    log.info("<- O método " + dto.getMethod() + " levou " +
-//        (endTime - startTime) + "ms e retornou:\n" + result.toString());
-    return result;
+      log.info("<- O método " + dto.getMethod() + " levou " +
+          (endTime - startTime) + "ms e retornou:\n" + stringRetorno);
+      Object finalRetorno = retorno;
+      handlers.stream()
+          .filter(e -> e.canHandle(dto, joinPoint))
+          .forEach(e -> e.handleAfter(dto, joinPoint, finalRetorno));
+    }
+    return retorno;
   }
 }
