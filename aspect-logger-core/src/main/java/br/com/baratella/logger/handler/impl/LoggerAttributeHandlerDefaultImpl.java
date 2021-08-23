@@ -14,29 +14,26 @@ public class LoggerAttributeHandlerDefaultImpl implements ILoggerAttributeHandle
   }
 
   @Override
-  public LoggerDTO handleBefore(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
+  public void handleBefore(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
     buildParamsMap(dto, joinPoint);
     if (attributes.length > 0) {
       Arrays.stream(attributes)
           .map(e -> e != null)
           .forEach(e -> dto.getParams().put(e.getClass().getSimpleName(), e));
     }
-    return dto;
   }
 
   @Override
-  public LoggerDTO handleAfter(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
+  public void handleAfter(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
     if (attributes.length > 0) {
       Arrays.stream(attributes)
           .map(e -> e != null)
           .forEach(e -> dto.getParams().put(e.getClass().getSimpleName(), e));
     }
-    return dto;
   }
 
   @Override
-  public LoggerDTO handleAfterThrow(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
-    return dto;
+  public void handleAfterThrow(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
   }
 
   private void buildParamsMap(LoggerDTO dto, JoinPoint joinPoint) {

@@ -7,9 +7,9 @@ public interface ILoggerAttributeHandler {
 
   boolean canHandle(LoggerDTO dto, JoinPoint joinPoint, Object... attributes);
 
-  LoggerDTO handleBefore(LoggerDTO dto, JoinPoint joinPoint, Object... attributes);
+  void handleBefore(LoggerDTO dto, JoinPoint joinPoint, Object... attributes);
 
-  LoggerDTO handleAfter(LoggerDTO dto, JoinPoint joinPoint, Object... attributes);
+  void handleAfter(LoggerDTO dto, JoinPoint joinPoint, Object... attributes);
 
-  LoggerDTO handleAfterThrow(LoggerDTO dto, JoinPoint joinPoint, Object... attributes);
+  void handleAfterThrow(LoggerDTO dto, JoinPoint joinPoint, Object... attributes);
 }

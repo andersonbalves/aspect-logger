@@ -1,8 +1,13 @@
 package br.com.baratella.logger.interceptors;
 
-import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.JoinPoint;
 
 public interface IConsumerLogger {
 
-  Object logAroundConsumerMethod(ProceedingJoinPoint joinPoint) throws Throwable;
+  void logBeforeMethod(JoinPoint joinPoint);
+
+  void logAfterMethod(JoinPoint joinPoint, Object retVal);
+
+  void logAfterThrowing(JoinPoint joinPoint, Throwable ex) throws Throwable;
+
 }

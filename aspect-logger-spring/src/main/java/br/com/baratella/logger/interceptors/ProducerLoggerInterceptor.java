@@ -1,9 +1,11 @@
 package br.com.baratella.logger.interceptors;
 
 import lombok.RequiredArgsConstructor;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +20,19 @@ public class ProducerLoggerInterceptor {
   private void producerMethodPointcut() {
   }
 
-  @Around("producerMethodPointcut()")
-  public Object doAroundIntercept(ProceedingJoinPoint joinPoint) throws Throwable {
-    return producerLogger.logAroundProducerMethod(joinPoint);
+  @Before("producerMethodPointcut()")
+  public void doLogBeforeMethod(JoinPoint joinPoint) throws Throwable {
+    producerLogger.logBeforeMethod(joinPoint);
+  }
+
+  @AfterReturning(pointcut = "producerMethodPointcut()", returning = "retVal")
+  public void doLogAfterMethod(JoinPoint joinPoint, Object retVal) throws Throwable {
+    producerLogger.logAfterMethod(joinPoint, retVal);
+  }
+
+  @AfterThrowing(pointcut = "producerMethodPointcut()", throwing = "ex")
+  public void doLogAfterThrowing(JoinPoint joinPoint, Throwable ex) throws Throwable {
+    producerLogger.logAfterThrowing(joinPoint, ex);
   }
 
 }

@@ -3,14 +3,21 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>br.com.baratella.logger.aspect</groupId>
   <artifactId>aspect-logger-opentracing-spring</artifactId>
+  <version>${aspect.logger.version}</version>
 
-  <build>
-    <plugins>
+  <name>aspect-logger-opentracing-spring</name>
+  <description>Plugin Opentracing for Aspect Logger</description>
 
+  <parent>
+    <artifactId>aspect-logger-parent</artifactId>
+    <groupId>br.com.baratella.logger.aspect</groupId>
+    <version>0.0.1</version>
+  </parent>
 
-    </plugins>
-  </build>
   <dependencies>
     <dependency>
       <artifactId>aspect-logger-spring</artifactId>
@@ -22,30 +29,6 @@
       <groupId>br.com.baratella.logger.aspect</groupId>
       <version>${aspect.logger.version}</version>
     </dependency>
-    <dependency>
-      <artifactId>opentracing-spring-jaeger-cloud-starter</artifactId>
-      <groupId>io.opentracing.contrib</groupId>
-      <version>3.3.1</version>
-    </dependency>
-    <dependency>
-      <artifactId>opentracing-spring-cloud-starter</artifactId>
-      <groupId>io.opentracing.contrib</groupId>
-      <version>0.5.9</version>
-    </dependency>
   </dependencies>
-  <description>Plugin Opentracing for Aspect Logger</description>
-
-  <groupId>br.com.baratella.logger.aspect</groupId>
-  <modelVersion>4.0.0</modelVersion>
-  <name>aspect-logger-opentracing-spring</name>
-
-  <parent>
-    <artifactId>aspect-logger-parent</artifactId>
-    <groupId>br.com.baratella.logger.aspect</groupId>
-    <version>0.0.1</version>
-  </parent>
-
-  <version>${aspect.logger.version}</version>
-
 
 </project>

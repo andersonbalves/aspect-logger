@@ -23,24 +23,17 @@ public class LoggerAttributeHandlerOpentracingImpl implements ILoggerAttributeHa
   }
 
   @Override
-  public LoggerDTO handleBefore(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
-    Span span = tracer.buildSpan(
-        getSpanName(joinPoint)).start();
-    span.setOperationName(getSpanName(joinPoint));
+  public void handleBefore(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
     dto.getParams().put("opentracing", tracer);
-    return dto;
   }
 
   @Override
-  public LoggerDTO handleAfter(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
-    Span span = tracer.activeSpan();
-    span.finish();
-    return dto;
+  public void handleAfter(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
   }
 
   @Override
-  public LoggerDTO handleAfterThrow(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
-    Span span = tracer.activeSpan();
+  public void handleAfterThrow(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
+    Span span = tracer.scopeManager().activeSpan();
     Tags.ERROR.set(span, Boolean.TRUE);
     Map<String, Object> message = new HashMap();
     Arrays.stream(attributes)
@@ -48,10 +41,10 @@ public class LoggerAttributeHandlerOpentracingImpl implements ILoggerAttributeHa
         .findFirst()
         .ifPresent(e -> message.put(Fields.ERROR_OBJECT, e));
     span.log(message);
-    return null;
   }
 
   private String getSpanName(JoinPoint joinPoint) {
-    return joinPoint.getTarget().getClass().getSimpleName() + "_" + joinPoint.getSignature().getName();
+    return joinPoint.getTarget().getClass().getSimpleName() + "_" + joinPoint.getSignature()
+        .getName();
   }
 }
