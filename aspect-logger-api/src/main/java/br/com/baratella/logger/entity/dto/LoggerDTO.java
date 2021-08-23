@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 
-@Getter
-@Setter
+@Data
 public class LoggerDTO {
 
   private final Map<String, Object> args = new HashMap<>();

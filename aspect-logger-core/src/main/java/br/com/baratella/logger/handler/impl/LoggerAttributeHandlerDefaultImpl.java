@@ -18,7 +18,7 @@ public class LoggerAttributeHandlerDefaultImpl implements ILoggerAttributeHandle
     buildParamsMap(dto, joinPoint);
     if (attributes.length > 0) {
       Arrays.stream(attributes)
-          .map(e -> e != null)
+          .filter(e -> e != null)
           .forEach(e -> dto.getParams().put(e.getClass().getSimpleName(), e));
     }
   }

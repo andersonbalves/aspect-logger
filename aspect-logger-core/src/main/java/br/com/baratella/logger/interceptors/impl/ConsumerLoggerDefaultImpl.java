@@ -18,8 +18,8 @@ public class ConsumerLoggerDefaultImpl implements IConsumerLogger {
   public void logBeforeMethod(JoinPoint joinPoint) {
     LoggerDTO dto = new LoggerDTO(joinPoint);
     handlers.stream()
-        .filter(e -> e.canHandle(dto, joinPoint))
-        .forEach(e -> e.handleBefore(dto, joinPoint));
+        .filter(e -> e.canHandle(dto, joinPoint, joinPoint.getArgs()))
+        .forEach(e -> e.handleBefore(dto, joinPoint, joinPoint.getArgs()));
 
     log.info("-> Método " + dto.getMethod() + " iniciado com as seguintes informações:\n"
         + dto.toString());
