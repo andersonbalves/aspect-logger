@@ -3,13 +3,16 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <artifactId>aspect-logger-opentracing</artifactId>
+  <artifactId>aspect-logger-opentelemetry</artifactId>
 
   <dependencies>
     <dependency>
-      <artifactId>opentracing-api</artifactId>
-      <groupId>io.opentracing</groupId>
-      <version>0.33.0</version>
+      <artifactId>opentelemetry-api</artifactId>
+      <groupId>io.opentelemetry</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>opentelemetry-extension-annotations</artifactId>
+      <groupId>io.opentelemetry</groupId>
     </dependency>
     <dependency>
       <artifactId>aspect-logger-core</artifactId>
@@ -17,11 +20,23 @@
       <version>${aspect.logger.version}</version>
     </dependency>
   </dependencies>
-  <description>Plugin Opentracing for Aspect Logger</description>
-  <groupId>br.com.baratella.logger.aspect</groupId>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <artifactId>opentelemetry-bom</artifactId>
+        <groupId>io.opentelemetry</groupId>
+        <scope>import</scope>
+        <type>pom</type>
+        <version>1.5.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <description>Plugin Opentelemetry for Aspect Logger</description>
 
+  <groupId>br.com.baratella.logger.aspect</groupId>
   <modelVersion>4.0.0</modelVersion>
-  <name>aspect-logger-opentracing</name>
+
+  <name>aspect-logger-opentelemetry</name>
 
   <parent>
     <artifactId>aspect-logger-parent</artifactId>

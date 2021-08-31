@@ -24,11 +24,12 @@ public class LoggerAttributeHandlerOpentracingImpl implements ILoggerAttributeHa
 
   @Override
   public void handleBefore(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
-    dto.getParams().put("opentracing", tracer);
+    dto.getExtraParams().put("opentracing", tracer);
     if (attributes.length > 0) {
       Arrays.stream(attributes)
           .filter(e -> e != null)
-          .forEach(e -> tracer.scopeManager().activeSpan().setTag(e.getClass().getSimpleName(), e.toString()));
+          .forEach(e -> tracer.scopeManager().activeSpan()
+              .setTag(e.getClass().getSimpleName(), e.toString()));
     }
   }
 

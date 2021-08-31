@@ -3,62 +3,7 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
-
-  <groupId>br.com.baratella.logger.aspect</groupId>
   <artifactId>aspect-logger-parent</artifactId>
-  <version>0.0.1</version>
-  <packaging>pom</packaging>
-
-  <name>aspect-logger-parent</name>
-  <description>Parent Project for Aspect Logger</description>
-
-  <parent>
-    <artifactId>spring-boot-dependencies</artifactId>
-    <groupId>org.springframework.boot</groupId>
-    <version>2.5.2</version>
-  </parent>
-
-  <modules>
-    <module>aspect-logger-api</module>
-    <module>aspect-logger-core</module>
-    <module>aspect-logger-spring</module>
-    <module>aspect-logger-opentracing</module>
-    <module>aspect-logger-opentracing-spring</module>
-  </modules>
-
-  <properties>
-    <aspect.logger.version>0.0.1</aspect.logger.version>
-    <aspectj.version>1.9.6</aspectj.version>
-    <java.version>11</java.version>
-    <lombok.version>1.18.20</lombok.version>
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-  </properties>
-
-  <dependencies>
-    <dependency>
-      <artifactId>jcl-over-slf4j</artifactId>
-      <groupId>org.slf4j</groupId>
-    </dependency>
-    <dependency>
-      <artifactId>disruptor</artifactId>
-      <groupId>com.lmax</groupId>
-      <version>3.4.2</version>
-    </dependency>
-    <dependency>
-      <artifactId>lombok</artifactId>
-      <groupId>org.projectlombok</groupId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <artifactId>aspectjweaver</artifactId>
-      <groupId>org.aspectj</groupId>
-      <scope>compile</scope>
-    </dependency>
-  </dependencies>
 
   <build>
     <plugins>
@@ -83,5 +28,71 @@
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+    <dependency>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <groupId>org.slf4j</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>disruptor</artifactId>
+      <groupId>com.lmax</groupId>
+      <version>3.4.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <artifactId>aspectjweaver</artifactId>
+      <groupId>org.aspectj</groupId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <artifactId>jackson-databind</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>avro</artifactId>
+      <groupId>org.apache.avro</groupId>
+      <version>1.10.2</version>
+    </dependency>
+  </dependencies>
+  <description>Parent Project for Aspect Logger</description>
+  <groupId>br.com.baratella.logger.aspect</groupId>
+
+  <modelVersion>4.0.0</modelVersion>
+  <modules>
+    <module>aspect-logger-api</module>
+    <module>aspect-logger-core</module>
+    <module>aspect-logger-spring</module>
+    <module>aspect-logger-opentracing</module>
+    <module>aspect-logger-opentracing-spring</module>
+    <module>aspect-logger-opentelemetry</module>
+    <module>aspect-logger-opentelemetry-spring</module>
+  </modules>
+
+  <name>aspect-logger-parent</name>
+
+  <packaging>pom</packaging>
+
+  <parent>
+    <artifactId>spring-boot-dependencies</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <version>2.5.2</version>
+  </parent>
+
+  <properties>
+    <aspect.logger.version>0.0.1</aspect.logger.version>
+    <aspectj.version>1.9.6</aspectj.version>
+    <java.version>11</java.version>
+    <lombok.version>1.18.20</lombok.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
+  <version>0.0.1</version>
 
 </project>

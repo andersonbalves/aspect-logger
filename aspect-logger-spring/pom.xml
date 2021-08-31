@@ -3,20 +3,7 @@
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <modelVersion>4.0.0</modelVersion>
-
-  <groupId>br.com.baratella.logger.aspect</groupId>
   <artifactId>aspect-logger-spring</artifactId>
-  <version>${aspect.logger.version}</version>
-
-  <name>aspect-logger-spring</name>
-  <description>Plugin Spring for Aspect Logger</description>
-
-  <parent>
-    <artifactId>aspect-logger-parent</artifactId>
-    <groupId>br.com.baratella.logger.aspect</groupId>
-    <version>0.0.1</version>
-  </parent>
 
   <dependencies>
     <dependency>
@@ -33,5 +20,18 @@
       <groupId>org.springframework.boot</groupId>
     </dependency>
   </dependencies>
+  <description>Plugin Spring for Aspect Logger</description>
+  <groupId>br.com.baratella.logger.aspect</groupId>
+
+  <modelVersion>4.0.0</modelVersion>
+  <name>aspect-logger-spring</name>
+
+  <parent>
+    <artifactId>aspect-logger-parent</artifactId>
+    <groupId>br.com.baratella.logger.aspect</groupId>
+    <version>0.0.1</version>
+  </parent>
+
+  <version>${aspect.logger.version}</version>
 
 </project>

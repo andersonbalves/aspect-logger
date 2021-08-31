@@ -6,22 +6,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 
 @Data
 public class LoggerDTO {
 
-  private final Map<String, Object> args = new HashMap<>();
-  private final Map<String, Object> params = new HashMap<>();
-  private String className;
-  private String method;
+  private final String eventName;
+  private final String className;
+  private final String methodSignature;
+  private final Map<String, Object> inputArgs;
+  private final Object returnValue;
+  private final Map<String, Object> extraParams;
 
-  public LoggerDTO(JoinPoint joinPoint) {
-    this.setClassName(joinPoint.getTarget().getClass().getName());
-    this.setMethod(getCompleteMethodSignature(joinPoint));
+  public LoggerDTO(JoinPoint joinPoint, String eventName, Object returnValue) {
+    this.eventName = eventName;
+    this.className = joinPoint.getTarget().getClass().getName();
+    this.methodSignature = getCompleteMethodSignature(joinPoint);
+    this.inputArgs = new HashMap<>();
+    this.extraParams = new HashMap<>();
+    this.returnValue = returnValue;
+  }
+
+  public LoggerDTO(JoinPoint joinPoint, String eventName) {
+    this(joinPoint, eventName, null);
   }
 
   private String getCompleteMethodSignature(JoinPoint joinPoint) {
