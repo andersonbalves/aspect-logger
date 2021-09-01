@@ -29,7 +29,6 @@ public class AspectLoggerConfig {
 
   @PostConstruct
   public void init() {
-    mapper.enable(SerializationFeature.INDENT_OUTPUT);
     mapper.addMixIn(Object.class, IgnoreSchemaProperty.class);
   }
 

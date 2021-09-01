@@ -2,6 +2,9 @@ package br.com.baratella.logger.handler.impl;
 
 import br.com.baratella.logger.entity.dto.LoggerDTO;
 import br.com.baratella.logger.handler.ILoggerAttributeHandler;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.opentracing.Span;
 import io.opentracing.Tracer;
 import io.opentracing.log.Fields;
@@ -10,12 +13,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.aspectj.lang.JoinPoint;
 
 @RequiredArgsConstructor
 public class LoggerAttributeHandlerOpentracingImpl implements ILoggerAttributeHandler {
 
   private final Tracer tracer;
+
+  private final ObjectMapper mapper = new ObjectMapper();
 
   @Override
   public boolean canHandle(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
@@ -24,13 +30,12 @@ public class LoggerAttributeHandlerOpentracingImpl implements ILoggerAttributeHa
 
   @Override
   public void handleBefore(LoggerDTO dto, JoinPoint joinPoint, Object... attributes) {
-    dto.getExtraParams().put("opentracing", tracer);
-    if (attributes.length > 0) {
-      Arrays.stream(attributes)
-          .filter(e -> e != null)
-          .forEach(e -> tracer.scopeManager().activeSpan()
-              .setTag(e.getClass().getSimpleName(), e.toString()));
-    }
+    dto.getExtraParams().put("opentracing", tracer.activeSpan().context());
+  }
+
+  @SneakyThrows
+  private String convert(Object e) {
+    return mapper.writeValueAsString(e);
   }
 
   @Override
@@ -49,8 +54,12 @@ public class LoggerAttributeHandlerOpentracingImpl implements ILoggerAttributeHa
     span.log(message);
   }
 
-  private String getSpanName(JoinPoint joinPoint) {
-    return joinPoint.getTarget().getClass().getSimpleName() + "_" + joinPoint.getSignature()
-        .getName();
+  abstract class IgnoreSchemaProperty {
+
+    @JsonIgnore
+    abstract void getSchema();
+
+    @JsonIgnore
+    abstract void getSpecificData();
   }
 }
