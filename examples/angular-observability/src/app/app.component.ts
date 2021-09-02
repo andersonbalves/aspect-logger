@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit {
       name: this.name,
       age: this.age
     };
-    return this.http.post('http://localhost:9080/user',
+    return this.http.post(environment.springObservabilityTelemetryUrl + '/user',
       body
     ).subscribe(response => response)
   }
@@ -32,7 +33,7 @@ export class AppComponent implements OnInit {
         name: this.name,
         age: this.age
       };
-      return this.http.post('http://localhost:9081/user',
+      return this.http.post(environment.springObservabilityOpentracingUrl + '/user',
         body
       ).subscribe(response => response)
     }

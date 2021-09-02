@@ -19,9 +19,9 @@ spring:
   application:
     name: spring-observability-opentracing
   kafka:
-    bootstrap-servers: kafka:9092
+    bootstrap-servers: ${BOOTSRAP_SERVERS:localhost:29092}
     properties:
-      schema.registry.url: http://schema-registry:8081
+      schema.registry.url: ${SCHEMA_REGISTRY_URL:http://localhost:8081}
     consumer:
       group-id: group_id_opentracing_1
       auto-offset-reset: latest
@@ -46,8 +46,8 @@ opentracing:
     expand-exception-logs: true
     service-name: spring-observability-opentracing
     udp-sender:
-      host: jaeger
-      port: 6831
+      host: ${JAEGER_HOST:localhost}
+      port: ${JAEGER_PORT:6831}
     sampler-type: const
     sampler-param: 1
     log-spans: true

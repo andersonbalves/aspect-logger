@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input'
 import { HttpClientModule } from '@angular/common/http';
 import { OpenTelemetryInterceptorModule, OtelColExporterModule, CompositePropagatorModule } from '@jufab/opentelemetry-angular-interceptor';
 import { DiagLogLevel } from '@opentelemetry/api'
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { DiagLogLevel } from '@opentelemetry/api'
         exportTimeoutMillis: '30000', // How long the export can run before it is cancelled
       },
       otelcolConfig: {
-        url: 'http://localhost:collector/v1/traces', //URL of opentelemetry collector
+        url: environment.otelConfigUrl,
         headers: {'Content-Type': 'application/json'}
       },
       // jaegerPropagatorConfig: {
