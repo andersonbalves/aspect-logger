@@ -1,0 +1,142 @@
+version: '3.3'
+
+services:
+  spring-observability-opentelemetry:
+    container_name: spring-observability-opentelemetry
+    restart: always
+    build: spring-observability-opentelemetry
+    ports:
+      - "9080:9080"
+    depends_on:
+      - kafka
+    networks:
+      - app-network
+
+  spring-observability-opentracing:
+    container_name: spring-observability-opentracing
+    restart: always
+    build: spring-observability-opentracing
+    ports:
+      - "9081:9081"
+    depends_on:
+      - kafka
+    networks:
+      - app-network
+
+  angular-observability:
+    container_name: angular-observability
+    restart: always
+    build:
+      context: ./angular-observability/
+    ports:
+      - "4200:4200"
+    networks:
+      - app-network
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:6.1.1
+    container_name: zookeeper
+    restart: unless-stopped
+    ports:
+      - "2181:2181"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    healthcheck:
+      test: "echo stat | nc localhost $$ZOOKEEPER_CLIENT_PORT"
+      start_period: 30s
+    networks:
+      - app-network
+
+  kafka:
+    image: confluentinc/cp-kafka:6.1.1
+    container_name: kafka
+    restart: unless-stopped
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "9092" ]
+      start_period: 30s
+    networks:
+      - app-network
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry:6.1.1
+    container_name: schema-registry
+    restart: unless-stopped
+    depends_on:
+      - kafka
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: kafka:9092
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+    healthcheck:
+      test: "curl -f http://localhost:8081 || exit 1"
+      start_period: 1m
+    networks:
+      - app-network
+
+  prometheus:
+    image: prom/prometheus:v2.26.0
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./conf/prometheus.yml:/etc/prometheus/prometheus.yml
+    command: --config.file=/etc/prometheus/prometheus.yml
+    networks:
+      - app-network
+
+  grafana:
+    image: grafana/grafana:7.5.5-ubuntu
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    networks:
+      - app-network
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.22
+    container_name: jaeger
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"
+      - "14268:14268"
+      - "14250:14250"
+    networks:
+      - app-network
+
+  collector:
+    image: otel/opentelemetry-collector:latest
+    container_name: opentelemetry-collector
+    command: [ "--config=/conf/collector-config.yaml", "--log-level=DEBUG" ]
+    volumes:
+      - ./conf/collector-config.yaml:/conf/collector-config.yaml
+    ports:
+      - "9464:9464"
+      - "55680:55680"
+      - "55681:55681"
+    depends_on:
+      - jaeger
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
