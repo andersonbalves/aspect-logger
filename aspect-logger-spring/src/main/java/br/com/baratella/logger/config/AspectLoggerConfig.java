@@ -5,15 +5,12 @@ import br.com.baratella.logger.interceptors.IAnnotationLogger;
 import br.com.baratella.logger.interceptors.IConsumerLogger;
 import br.com.baratella.logger.interceptors.IControllerLogger;
 import br.com.baratella.logger.interceptors.IProducerLogger;
-import br.com.baratella.logger.interceptors.IServiceLogger;
 import br.com.baratella.logger.interceptors.impl.AnnotationLoggerDefaultImpl;
 import br.com.baratella.logger.interceptors.impl.ConsumerLoggerDefaultImpl;
 import br.com.baratella.logger.interceptors.impl.ControllerLoggerDefaultImpl;
 import br.com.baratella.logger.interceptors.impl.ProducerLoggerDefaultImpl;
-import br.com.baratella.logger.interceptors.impl.ServiceLoggerDefaultImpl;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -51,11 +48,6 @@ public class AspectLoggerConfig {
   @Bean
   public IProducerLogger producerLoggerDefaultImpl() {
     return new ProducerLoggerDefaultImpl(handlers, mapper);
-  }
-
-  @Bean
-  public IServiceLogger serviceLoggerDefaultImpl() {
-    return new ServiceLoggerDefaultImpl(handlers, mapper);
   }
 
   abstract class IgnoreSchemaProperty {
