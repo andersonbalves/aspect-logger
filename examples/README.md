@@ -9,14 +9,14 @@ In this project you can also find examples of integration between Spring Boot Ap
 - [`Docker-Compose`](https://docs.docker.com/compose/install/)
 - [`NodeJS`](https://nodejs.org/en/)
 
-##Running examples
+## Running examples
 
-###Build Java projects
+### Build Java projects
 To build java applications, go to a terminal and, inside root folder, run the command below
 ```sh
 mvn clean install
 ```
-###Build Angular Project
+### Build Angular Project
 To build the Angular project, inside `angular-observability` root folder, run:
 ```sh
 npm install
@@ -26,13 +26,13 @@ Then run:
 npm run build --prod
 ```
 
-###Build and Run Docker images
+### Build and Run Docker images
 To build docker and run Docker images, inside root folder run the command:
 ```sh
 docker-compose up --build
 ```
 
-###Shutdown
+### Shutdown
 To stop and remove docker-compose containers, network and volumes, go to a terminal and, inside root folder, run the command below
 ```sh
 docker-compose down
@@ -40,7 +40,9 @@ docker-compose down
 
 ## Useful Links
 
-###Frontend Angular
+### Frontend Angular
   Frontend can be accessed at http://localhost:4200
-###Jaeger UI
+  
+### Jaeger UI
   `Jaeger UI` can be accessed at http://localhost:16686/search
+  
