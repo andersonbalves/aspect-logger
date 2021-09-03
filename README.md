@@ -6,7 +6,7 @@ The goal of this project is provide some libs to generate logs based on Aspect O
 
 - **aspect-logger-api** - Provides a set classes and interfaces
 - **aspect-logger-core** - Provides the library core implementation such as:
-    - *AnnotationLogger* - Logger to "@LogMethod" annotated methods
+    - *AnnotationLogger* - Logger to `@LogMethod` annotated methods
     - *ControllerLogger* - Logger to Controller objects
     - *ConsumerLogger* - Logger to KafkaConsumer objects
     - *ProducerLogger* - Logger to KafkaProducer objects
